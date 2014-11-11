@@ -1,0 +1,22 @@
+
+module newrelic 1.0;
+
+require {
+	type httpd_t;
+	type tmp_t;
+	type initrc_var_run_t;
+	type initrc_tmp_t;
+	type initrc_t;
+	class sock_file write;
+	class unix_stream_socket connectto;
+	class file { read write open };
+}
+
+#============= httpd_t ==============
+allow httpd_t initrc_t:unix_stream_socket connectto;
+
+allow httpd_t initrc_tmp_t:file open;
+
+allow httpd_t initrc_var_run_t:file { read write };
+
+allow httpd_t tmp_t:sock_file write;
